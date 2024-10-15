@@ -9,6 +9,9 @@ from configuracoes import momento_registro
 from logica_api import obter_banco_de_dados, conferir_parametros
 from free_regression import Regression, generate_regression, transpose
 
+from log import print_log
+print = print_log
+
 app = Flask(__name__)
 
 # Funções para API:

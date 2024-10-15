@@ -3,8 +3,11 @@ Arquivo de configurações estáticas globais
 """
 from datetime import datetime
 
-PASTA_DADOS = "dados"
-NOME_BD = "dados_regressao.csv"
+PASTA_DADOS:str = "dados"
+NOME_BD:str = "dados_regressao.csv"
+DEBUG:bool = True
+SALVAR_LOG:str = False
+
 
 def momento_registro() -> str:
     """
