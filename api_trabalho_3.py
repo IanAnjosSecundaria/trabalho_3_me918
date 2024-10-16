@@ -63,7 +63,7 @@ def inserir_item():
         BD_GLOBAL["momento_registro"].append(momento_registro())
         return jsonify({"mensagem": "Item adicionado com sucesso!"}), 201
 
-    return jsonify({"erro": "Dados inválidos"}), 400
+    return jsonify({"erro": "Dados inválidos"}), 200
 
 @app.route("/deletar", methods = ["POST"])
 def deletar_item():
@@ -86,6 +86,18 @@ def deletar_item():
         return jsonify({"erro": "Coluna não encontrada"}), 404
 
     return jsonify({"erro": "Requisição incorreta, passe 'coluna' no corpo JSON!"}), 400
+
+@app.route("/salvar", methods = ["POST"])
+def treinar_item():
+    """
+    Treina o banco de dados
+
+    Exemplo:
+        http://127.0.0.1:5000/treinar/
+    """
+    dados = transpose([list(map(float, BD_GLOBAL["x"])), list(map(float, BD_GLOBAL["y"]))])
+    REGRESSAO_GLOBAL.run(dados)
+    return jsonify({"mensagem": "Requisição completa!"}), 400
 
 @app.route("/grafico", methods = ["GET"])
 def obter_grafico():
