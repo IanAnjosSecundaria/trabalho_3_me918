@@ -2,11 +2,11 @@
 API trabalho 3
 """
 # Bibliteca para API
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template_string
 
 # Bibliotecas próprias
 from configuracoes import momento_registro
-from logica_api import obter_banco_de_dados, conferir_parametros, salvar_banco_de_dados
+from logica_api import obter_banco_de_dados, conferir_parametros, salvar_banco_de_dados, plot
 from free_regression import Regression, generate_regression, transpose
 
 from log import print_log
@@ -57,10 +57,10 @@ def inserir_item():
     colunas_necessarias = ["x", "grupo", "y"]
 
     if conferir_parametros(dados = novo_item, colunas = colunas_necessarias):
-        BD_GLOBAL["x"].append(str(novo_item["x"]))
-        BD_GLOBAL["grupo"].append(str(novo_item["grupo"]))
-        BD_GLOBAL["y"].append(str(novo_item["y"]))
-        BD_GLOBAL["momento_registro"].append(momento_registro())
+        globals()["BD_GLOBAL"]["x"].append(str(novo_item["x"]))
+        globals()["BD_GLOBAL"]["grupo"].append(str(novo_item["grupo"]))
+        globals()["BD_GLOBAL"]["y"].append(str(novo_item["y"]))
+        globals()["BD_GLOBAL"]["momento_registro"].append(momento_registro())
         return jsonify({"mensagem": "Item adicionado com sucesso!"}), 201
 
     return jsonify({"erro": "Dados inválidos"}), 200
@@ -78,9 +78,9 @@ def deletar_item():
     
     if "coluna" in requisicao:
         coluna = requisicao["coluna"]
-        if coluna < len(BD_GLOBAL["x"]):
-            for key in BD_GLOBAL.keys():
-                BD_GLOBAL[key].pop(coluna)
+        if coluna < len(globals()["BD_GLOBAL"]["x"]):
+            for key in globals()["BD_GLOBAL"].keys():
+                globals()["BD_GLOBAL"][key].pop(coluna)
             return jsonify({"mensagem": f"Coluna {coluna} deletada com sucesso!"}), 200
         return jsonify({"erro": "Coluna não encontrada"}), 404
 
@@ -94,16 +94,23 @@ def salvar_bd():
     Exemplo:
         curl -X POST http://127.0.0.1:5000/salvar
     """
-    if salvar_banco_de_dados(globals()['BD_GLOBAL']):
+    if salvar_banco_de_dados(globals()["BD_GLOBAL"]):
         return jsonify({"mensagem": "Requisição de salvamento completa!"}), 200
     return jsonify({"erro": "Não foi possível salvar os dados!"}), 400
 
 @app.route("/grafico", methods = ["GET"])
 def obter_grafico():
     """
-    Obter o gráfico mapeando X e Y e uma reta da regressão
+    Obter o gráfico mapeando X e Y, os grupos e uma reta de regressão
+
+    Exemplo (no próprio browser):
+        http://127.0.0.1:5000/grafico
     """
-    pass
+    plot_img = plot(dados = globals()["BD_GLOBAL"], b0 = globals()["REGRESSAO_GLOBAL"]["b"], b1 = globals()["REGRESSAO_GLOBAL"]["b_1"])
+    
+    # Renderizando a imagem no HTML como base64
+    html = f'<img src="data:image/png;base64,{plot_img}"/>'
+    return render_template_string(html), 200
 
 @app.route("/parametros", methods = ["GET"])
 def obter_estimativas_parametros():
