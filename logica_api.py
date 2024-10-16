@@ -39,7 +39,8 @@ def salvar_banco_de_dados(dados:dict) -> bool:
             arq.write(dados)
         print(f"Dados salvo em {PASTA_DADOS}/{NOME_BD}...")
         return True
-    except:
+    except Exception as error:
+        print(f"Erro em salvar os dados: {error}")
         return False
 
 def conferir_parametros(dados:dict, colunas:list) -> bool:

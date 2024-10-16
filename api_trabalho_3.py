@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify
 
 # Bibliotecas próprias
 from configuracoes import momento_registro
-from logica_api import obter_banco_de_dados, conferir_parametros
+from logica_api import obter_banco_de_dados, conferir_parametros, salvar_banco_de_dados
 from free_regression import Regression, generate_regression, transpose
 
 from log import print_log
@@ -41,7 +41,7 @@ def treinar_item():
     """
     dados = transpose([list(map(float, BD_GLOBAL["x"])), list(map(float, BD_GLOBAL["y"]))])
     REGRESSAO_GLOBAL.run(dados)
-    return jsonify({"mensagem": "Requisição completa!"}), 400
+    return jsonify({"mensagem": "Requisição completa!"}), 200
 
 @app.route("/inserir", methods = ["POST"])
 def inserir_item():
@@ -64,7 +64,6 @@ def inserir_item():
         return jsonify({"mensagem": "Item adicionado com sucesso!"}), 201
 
     return jsonify({"erro": "Dados inválidos"}), 200
-
 @app.route("/deletar", methods = ["POST"])
 def deletar_item():
     """
@@ -88,16 +87,16 @@ def deletar_item():
     return jsonify({"erro": "Requisição incorreta, passe 'coluna' no corpo JSON!"}), 400
 
 @app.route("/salvar", methods = ["POST"])
-def treinar_item():
+def salvar_bd():
     """
     Treina o banco de dados
 
     Exemplo:
-        http://127.0.0.1:5000/treinar/
+        curl -X POST http://127.0.0.1:5000/salvar
     """
-    dados = transpose([list(map(float, BD_GLOBAL["x"])), list(map(float, BD_GLOBAL["y"]))])
-    REGRESSAO_GLOBAL.run(dados)
-    return jsonify({"mensagem": "Requisição completa!"}), 400
+    if salvar_banco_de_dados(globals()['BD_GLOBAL']):
+        return jsonify({"mensagem": "Requisição de salvamento completa!"}), 200
+    return jsonify({"erro": "Não foi possível salvar os dados!"}), 400
 
 @app.route("/grafico", methods = ["GET"])
 def obter_grafico():
