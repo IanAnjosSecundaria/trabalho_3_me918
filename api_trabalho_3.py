@@ -27,6 +27,11 @@ def home():
 def ver_dados():
     """
     Ver o dicionário de dados atual
+
+    Exemplo:
+        curl http://127.0.0.1:5000/dados
+
+    Exemplo (no próprio browser)
     """
     return globals()["BD_GLOBAL"], 200
 
@@ -116,6 +121,12 @@ def obter_grafico():
 def obter_estimativas_parametros():
     """
     Retorna um dicionario json com os parâmetros e regressores
+
+    Exemplo (no próprio browser):
+        http://127.0.0.1:5000/grafico
+
+    Exemplo:
+        curl http://127.0.0.1:5000/parametros
     """
     parametros = {}
     parametros["regressores"] = REGRESSAO_GLOBAL.regressors
