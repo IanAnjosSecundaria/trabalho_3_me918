@@ -2,6 +2,9 @@
 
 API em python usando *Flask*
 
+# Logs/Registros
+
+A API salva os registros dos pedidos a API na pasta log§ em arquivos que são indentificados pela data de inicialização da API.
 
 # Funcionalidades
 

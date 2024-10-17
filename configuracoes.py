@@ -6,7 +6,7 @@ from datetime import datetime
 PASTA_DADOS:str = "dados"
 NOME_BD:str = "dados_regressao.csv"
 DEBUG:bool = True
-SALVAR_LOG:str = False
+SALVAR_LOG:str = True
 
 
 def momento_registro() -> str:
