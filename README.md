@@ -26,11 +26,11 @@ Como a ferramenta foi construida para o trabalho e será acessada apenas no loca
 
 ## /dados
 
-Retorna o banco de dados global atual (dados_regressao). Esse banco contém valores de x, grupo e valores de y, além de registros de data/hora da inserção dos dados.
+Retorna um banco de dados global (dados_regressao). Esse banco contém valores de x, grupo e valores de y, além de registros de data/hora da inserção dos dados.
 
 ### Descrição
 
-Retorna o banco de dados global atual (dados_regressao). Esse banco contém as seguintes variáveis:
+As variáveis do banco de dados são as seguintes:
 
 - x: lista de valores x;
 
@@ -52,6 +52,8 @@ curl http://127.0.0.1:5000/dados
 
 ### Descrição
 
+Treina o modelo de regressão linear com os dados disponíveis no banco  utilizado. Utiliza os valores x e y para ajustar um modelo de regressão, que será usado posteriormente para predições.
+
 ### Uso
 
 ```
@@ -64,6 +66,8 @@ http://127.0.0.1:5000/treinar
 
 ### Descrição
 
+Insere um novo item no banco de dados global. É necessário fornecer os valores de x, grupo e y no corpo da requisição no formato JSON para inserir o novo item.
+
 ### Uso
 
 ```
@@ -75,6 +79,8 @@ http://127.0.0.1:5000/inserir
 ## /deletar
 
 ### Descrição
+
+Remove uma linha do banco de dados, especificada pelo índice da coluna. O valor da linha a ser deletada é passado no corpo da requisição em formato JSON, então a linha selecionada será deletada.
 
 ### Uso
 
@@ -100,6 +106,8 @@ curl -X POST http://127.0.0.1:5000/salvar
 
 ### Descrição
 
+Gera e retorna um gráfico visualizando os dados x e y, assim como a reta ajustada pelo modelo de regressão. 
+
 ### Uso
 
 ```
@@ -111,6 +119,8 @@ http://127.0.0.1:5000/grafico
 
 ### Descrição
 
+Retorna os parâmetros ajustados do modelo de regressão após o treinamento, incluindo os coeficientes (regressores) e as constantes. Esses parâmetros são de suma importância para interpretar como o modelo ajusta os dados.
+
 ### Uso
 
 ```
@@ -121,6 +131,8 @@ curl http://127.0.0.1:5000/parametros
 ## /predicao
 
 ### Descrição
+
+Permite fazer previsões com o modelo de regressão treinado. O valor da predição é passado no corpo da requisição JSON. Se forem passados múltiplos valores, o modelo também irá retornar as previsões correspondentes.
 
 ### Uso
 
