@@ -26,7 +26,20 @@ Como a ferramenta foi construida para o trabalho e será acessada apenas no loca
 
 ## /dados
 
+Retorna o banco de dados global atual (dados_regressao). Esse banco contém valores de x, grupo e valores de y, além de registros de data/hora da inserção dos dados.
+
 ### Descrição
+
+Retorna o banco de dados global atual (dados_regressao). Esse banco contém as seguintes variáveis:
+
+- x: lista de valores x;
+
+- grupo: variando entre A, B e C como possíveis grupos;
+
+- y: lista de valores y;
+
+-  momento_registro: onde estão registros de data/hora da inserção dos dados.
+
 
 ### Uso
 
