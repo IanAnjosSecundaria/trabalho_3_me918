@@ -1,6 +1,6 @@
 # trabalho_3_me918
 
-API em Python utilizando *Flask*.
+API em Python utilizando *Flask*, destinada ao processamento de um modelo de regressão linear simples. Esta API permite a manipulação de um banco de dados de pontos de dados (com variáveis x, y, grupo e momento_registro), e executa operações como inserção de novos dados, treinamento do modelo de regressão e predições.
 
 # Logs/Registros
 
