@@ -95,6 +95,8 @@ http://127.0.0.1:5000/deletar
 
 ### Descrição
 
+Salva o banco de dados atual em *.csv* na pasta ```dados```. Ao reabrir a API ela usara esse banco de dados.
+
 ### Uso
 
 ```
