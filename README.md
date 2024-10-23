@@ -1,6 +1,6 @@
 # trabalho_3_me918
 
-API em Python utilizando *Flask*, destinada ao processamento de um modelo de regressão linear simples. Esta API permite a manipulação de um banco de dados de pontos de dados (com variáveis x, y, grupo e momento_registro), e executa operações como inserção de novos dados, treinamento do modelo de regressão e predições.
+API em *Python* utilizando *Flask*, destinada ao processamento de um modelo de regressão linear simples. Esta API permite a manipulação de um banco de dados de pontos de dados (com variáveis x, y, grupo e momento_registro), e executa operações como inserção de novos dados, treinamento do modelo de regressão e predições.
 
 # Logs/Registros
 
@@ -112,6 +112,8 @@ Gera e retorna um gráfico visualizando os dados x e y, assim como a reta ajusta
 
 ### Uso
 
+No *browser*:
+
 ```
 http://127.0.0.1:5000/grafico
 ```
@@ -138,8 +140,18 @@ Permite fazer previsões com o modelo de regressão treinado. O valor da prediç
 
 ### Uso
 
+Para predição única:
+
 ```
 curl -X GET -H "Content-Type: application/json" \
 -d '{"predicao": [3.1]}' \
+http://127.0.0.1:5000/predicao
+```
+
+Para predição multipla basta passar uma lista de listas com o parâmetro a ser predito:
+
+```
+curl -X GET -H "Content-Type: application/json" \
+-d '{"predicao": [[3.1], [4.8]]}' \
 http://127.0.0.1:5000/predicao
 ```
